@@ -19,7 +19,7 @@ picos = [
 ]
 
 DATA_INICIO_PROJETO = "2024-01-01"
-OUTPUT_DIR = 'data'
+OUTPUT_DIR = 'data/bronze/'
 FILE_PATH = os.path.join(OUTPUT_DIR, 'surf_raw_data.csv')
 
 def pipeline_ingestao_surf(lista_picos, start_date, end_date):
