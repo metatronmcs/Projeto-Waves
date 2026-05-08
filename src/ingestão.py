@@ -29,7 +29,7 @@ def pipeline_ingestao_surf(lista_picos, start_date, end_date):
     hoje = datetime.today().date()
     
     # Seleção dinâmica de API (Arquivos e Forecast)
-    if dt_start < (hoje - timedelta(days=120)):
+    if dt_start < (hoje - timedelta(days=60)):
         # Para dados históricos, usamos o arquivo de vento e marine normal (que também tem histórico):
         url_marine = "https://marine-api.open-meteo.com/v1/marine" # Marine também lida com histórico
         url_weather = "https://archive-api.open-meteo.com/v1/archive" # Vento arquivo histórico

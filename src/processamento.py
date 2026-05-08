@@ -27,7 +27,7 @@ def gerar_camada_silver():
     caminho_bronze = raiz_projeto / "data" / "bronze" / "surf_raw_data.csv"
     caminho_silver = raiz_projeto / "data" / "silver" / "surf_silver_data.csv"
 
-    print(f"--- Iniciando Processamento ---")
+    print(f"Iniciando Processamento de Dados para Camada Silver...")
     print(f"Procurando bronze em: {caminho_bronze}")
 
     if not caminho_bronze.exists():
@@ -64,5 +64,6 @@ def gerar_camada_silver():
     df.to_csv(caminho_silver, index=False)
     
     print(f"Sucesso! Arquivo salvo em: {caminho_silver}")
+    print(f"Total de linhas processadas: {len(df)}")
 
 gerar_camada_silver()
