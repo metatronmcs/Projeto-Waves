@@ -1,0 +1,72 @@
+table dim_calendario
+	lineageTag: c48e7203-82cc-41ac-91ef-f783ad7979f3
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 05715cdc-3367-4b01-be41-b7fe25b42368
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column id_data
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b492fb2-9aa4-4d9c-905d-bcf027a00fd9
+		summarizeBy: none
+		sourceColumn: id_data
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 4dbd0d38-2724-4424-b3fe-37325b201eba
+		summarizeBy: none
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 42fdf459-f94a-42df-aa9e-380881bdb54d
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 378fb100-245e-4801-a8d8-425f12b97135
+		summarizeBy: none
+		sourceColumn: dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana_nome
+		dataType: string
+		lineageTag: 3f57afca-ea30-4553-bc1b-90e7c7ab411d
+		summarizeBy: none
+		sourceColumn: dia_semana_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_calendario.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"data", type date}, {"id_data", Int64.Type}, {"ano", Int64.Type}, {"mes", Int64.Type}, {"dia", Int64.Type}, {"dia_semana_nome", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

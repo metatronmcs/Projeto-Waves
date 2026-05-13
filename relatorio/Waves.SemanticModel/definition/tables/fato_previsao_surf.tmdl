@@ -1,0 +1,107 @@
+table fato_previsao_surf
+	lineageTag: 291b2100-6d8f-4f9d-8444-29638132a2bb
+
+	column id_data
+		dataType: int64
+		formatString: 0
+		lineageTag: cb08d618-b7bd-4a0f-8809-dc17edaab2e9
+		summarizeBy: none
+		sourceColumn: id_data
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_praia
+		dataType: int64
+		formatString: 0
+		lineageTag: a5538fab-0f61-4f5a-a825-4b8d04f3b9c7
+		summarizeBy: none
+		sourceColumn: id_praia
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_condicao
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a457c5c-07dc-4c49-89c2-09b3503a9b32
+		summarizeBy: none
+		sourceColumn: id_condicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora
+		dataType: int64
+		formatString: 0
+		lineageTag: 019cbd39-812a-4fcf-8ba3-2ae1f646c481
+		summarizeBy: sum
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column tamanho_onda
+		dataType: int64
+		formatString: 0
+		lineageTag: 319ab558-4709-4524-9d1d-7714b5667ec4
+		summarizeBy: sum
+		sourceColumn: tamanho_onda
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo_onda
+		dataType: int64
+		formatString: 0
+		lineageTag: 400c72bd-aee7-4ca3-be1d-ed5bbe97cdd0
+		summarizeBy: sum
+		sourceColumn: periodo_onda
+
+		annotation SummarizationSetBy = Automatic
+
+	column direcao_onda
+		dataType: int64
+		formatString: 0
+		lineageTag: f8b940dd-831d-4a3c-9738-f4846e8572c5
+		summarizeBy: sum
+		sourceColumn: direcao_onda
+
+		annotation SummarizationSetBy = Automatic
+
+	column velocidade_vento
+		dataType: int64
+		formatString: 0
+		lineageTag: 02153348-87de-4b59-be36-5bd64fc4ebdf
+		summarizeBy: sum
+		sourceColumn: velocidade_vento
+
+		annotation SummarizationSetBy = Automatic
+
+	column direcao_vento
+		dataType: int64
+		formatString: 0
+		lineageTag: 6878c0b8-66e5-4cce-afc9-fa6f33043bb0
+		summarizeBy: sum
+		sourceColumn: direcao_vento
+
+		annotation SummarizationSetBy = Automatic
+
+	column potencia_onda
+		dataType: int64
+		formatString: 0
+		lineageTag: 3601e97d-ac87-4f41-b5b1-b99453730d56
+		summarizeBy: sum
+		sourceColumn: potencia_onda
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_previsao_surf = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\fato_previsao_surf.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id_data", Int64.Type}, {"id_praia", Int64.Type}, {"id_condicao", Int64.Type}, {"hora", Int64.Type}, {"tamanho_onda", Int64.Type}, {"periodo_onda", Int64.Type}, {"direcao_onda", Int64.Type}, {"velocidade_vento", Int64.Type}, {"direcao_vento", Int64.Type}, {"potencia_onda", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

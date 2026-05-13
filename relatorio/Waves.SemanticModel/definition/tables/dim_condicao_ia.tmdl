@@ -1,0 +1,42 @@
+table dim_condicao_ia
+	lineageTag: 56363413-9730-48ff-9bac-9b9d58ff403a
+
+	column predicao_modelo
+		dataType: string
+		lineageTag: 3fda5bd8-6aaa-46a6-bd5d-893ba0179906
+		summarizeBy: none
+		sourceColumn: predicao_modelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column indice_aproveitamento
+		dataType: string
+		lineageTag: 4226af0e-ba3c-4fd7-802b-8cd0c6598aa1
+		summarizeBy: none
+		sourceColumn: indice_aproveitamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_condicao
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cddb5dc-c6c9-4811-a4ce-1cb11123a862
+		summarizeBy: none
+		sourceColumn: id_condicao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_condicao_ia = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_condicao_ia.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"predicao_modelo", type text}, {"indice_aproveitamento", type text}, {"id_condicao", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

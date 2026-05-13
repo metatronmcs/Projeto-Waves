@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 1
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 381.91451386045082,
+            "y": 462.29827734250222
+          },
+          "nodeIndex": "dim_calendario",
+          "nodeLineageTag": "c48e7203-82cc-41ac-91ef-f783ad7979f3",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 730.53590034705076,
+            "y": 76
+          },
+          "nodeIndex": "dim_condicao_ia",
+          "nodeLineageTag": "56363413-9730-48ff-9bac-9b9d58ff403a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 42,
+            "y": 100.58479889981811
+          },
+          "nodeIndex": "dim_praias",
+          "nodeLineageTag": "ac8635f6-8d61-4e7a-9160-0420e852dbba",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 415.55240524470611,
+            "y": 50
+          },
+          "nodeIndex": "fato_previsao_surf",
+          "nodeLineageTag": "291b2100-6d8f-4f9d-8444-29638132a2bb",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

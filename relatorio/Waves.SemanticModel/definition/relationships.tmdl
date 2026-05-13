@@ -1,0 +1,12 @@
+relationship AutoDetected_1bdcc998-ac30-4bc8-b640-a8dcd0bed96b
+	fromColumn: fato_previsao_surf.id_data
+	toColumn: dim_calendario.id_data
+
+relationship AutoDetected_570c94b2-6d28-4eba-af7d-a8505edea249
+	fromColumn: fato_previsao_surf.id_praia
+	toColumn: dim_praias.id_praia
+
+relationship AutoDetected_e3f0b81a-e3ba-4291-adcd-b30893288261
+	fromColumn: fato_previsao_surf.id_condicao
+	toColumn: dim_condicao_ia.id_condicao
+

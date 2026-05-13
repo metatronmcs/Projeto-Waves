@@ -1,0 +1,61 @@
+table dim_praias
+	lineageTag: ac8635f6-8d61-4e7a-9160-0420e852dbba
+
+	column pico_nome
+		dataType: string
+		lineageTag: bc90f276-544f-4e27-a372-1904261259d5
+		summarizeBy: none
+		sourceColumn: pico_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column pico_orientacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c5af714-e7fd-4f31-bdfb-8737ac104092
+		summarizeBy: none
+		sourceColumn: pico_orientacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: int64
+		formatString: 0
+		lineageTag: 57651ea6-af3e-4f57-b09b-c83e415e8aa6
+		summarizeBy: none
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+	column lon
+		dataType: int64
+		formatString: 0
+		lineageTag: 5492a8c7-36ca-49bd-acf5-df15944ad91b
+		summarizeBy: none
+		sourceColumn: lon
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_praia
+		dataType: int64
+		formatString: 0
+		lineageTag: 079b1b39-37c8-40ac-b4ec-c7bd4529d437
+		summarizeBy: none
+		sourceColumn: id_praia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_praias = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_praias.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"pico_nome", type text}, {"pico_orientacao", Int64.Type}, {"lat", Int64.Type}, {"lon", Int64.Type}, {"id_praia", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
