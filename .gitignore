@@ -3,14 +3,12 @@ __pycache__/
 *.dataset
 *.msvc-tmp
 
-# Evitar que o OneDrive trave o Git ao mudar de branch
-[Dd]esktop.ini
-$RECYCLE.BIN/
-.DS_Store
-
-# Garantir que o pipeline precise ser executado para gerar os dados
+# Ignora dados brutos e intermediários
 data/bronze/
 data/silver/
+
+# NÃO ignorar a camada gold, para que o Power BI abra com dados
+!data/gold/
 
 .venv/
 venv/
