@@ -2,7 +2,6 @@ __pycache__/
 *.pyc
 *.dataset
 *.msvc-tmp
-**/Metadata/Layout
 
 # Evitar que o OneDrive trave o Git ao mudar de branch
 [Dd]esktop.ini
