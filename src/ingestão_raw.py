@@ -145,5 +145,7 @@ for pico in picos:
         
         cursor_data = proximo_mes
         time.sleep(1) 
-
 print(f"Processo Finalizado! Dados em: {os.path.abspath(FILE_PATH)}")
+
+if __name__ == "__main__":
+    salvar_dados_robusto()

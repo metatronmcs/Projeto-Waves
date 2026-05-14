@@ -3,6 +3,8 @@ import numpy as np
 import os
 from pathlib import Path
 
+from ingestão_raw import salvar_dados_robusto
+
 def classificar_nivel_surf(row):
     # Logica para mar calmo (Ondas até 1.0m)
     if row['tamanho_onda'] <= 1.0:
@@ -66,4 +68,5 @@ def gerar_camada_silver():
     print(f"Sucesso! Arquivo salvo em: {caminho_silver}")
     print(f"Total de linhas processadas: {len(df)}")
 
-gerar_camada_silver()
+if __name__ == "__main__":
+    gerar_camada_silver()
