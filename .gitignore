@@ -4,6 +4,9 @@ __pycache__/
 *.msvc-tmp
 **/Metadata/Layout
 
+# Ignora caches locais do Power BI / Analysis Services
+*.cache.abf
+
 # Evitar que o OneDrive trave o Git ao mudar de branch
 [Dd]esktop.ini
 $RECYCLE.BIN/
