@@ -1,0 +1,41 @@
+table classificacao_dia_semana
+	lineageTag: 70745565-f5c0-4aeb-9754-e80c9ca61778
+
+	column dia_da_semana
+		dataType: string
+		lineageTag: 836ac372-7aa7-4a56-9cfe-1b500602684f
+		summarizeBy: none
+		sourceColumn: dia_da_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column classificacao
+		dataType: int64
+		formatString: 0
+		lineageTag: acef3002-3bf7-4d85-97f1-e418657ea85c
+		summarizeBy: none
+		sourceColumn: classificacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_dia_semana
+		dataType: string
+		lineageTag: f5e9aa80-a44f-4bda-88f6-f61eafafb712
+		summarizeBy: none
+		sourceColumn: id_dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	partition classificacao_dia_semana = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8s3PS0msVNJRMgTjWJ1opZDS1GKImBEYg8TCU1PyYKLGYAxWmVFaBBU0AWOQoFtRJkTIFIxBQsGJJaVFEEEzMAYLlkJtNgBic6XYWAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [dia_da_semana = _t, classificacao = _t, id_dia_semana = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"dia_da_semana", type text}, {"classificacao", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

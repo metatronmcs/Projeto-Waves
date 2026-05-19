@@ -1,5 +1,5 @@
 {
-  "config": "{\"version\":\"5.72\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY26SU04\",\"type\":2,\"version\":{\"visual\":\"2.8.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}},\"customTheme\":{\"name\":\"Innovate\",\"type\":2,\"version\":{\"visual\":\"2.8.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "config": "{\"version\":\"5.72\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY26SU04\",\"type\":2,\"version\":{\"visual\":\"2.8.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}},\"customTheme\":{\"name\":\"Innovate\",\"type\":2,\"version\":{\"visual\":\"2.8.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"visible\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
   "layoutOptimization": 0,
   "resourcePackages": [
     {
@@ -27,18 +27,45 @@
       "config": "{}",
       "displayName": "Página 1",
       "displayOption": 1,
-      "filters": "[]",
+      "filters": "[{\"name\":\"8d65ab2673fc54dca370\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fato_previsao_surf\"}},\"Property\":\"hora\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fato_previsao_surf\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"hora\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"6L\"}}],[{\"Literal\":{\"Value\":\"7L\"}}],[{\"Literal\":{\"Value\":\"8L\"}}],[{\"Literal\":{\"Value\":\"9L\"}}],[{\"Literal\":{\"Value\":\"10L\"}}],[{\"Literal\":{\"Value\":\"11L\"}}],[{\"Literal\":{\"Value\":\"12L\"}}],[{\"Literal\":{\"Value\":\"13L\"}}],[{\"Literal\":{\"Value\":\"14L\"}}],[{\"Literal\":{\"Value\":\"15L\"}}],[{\"Literal\":{\"Value\":\"16L\"}}],[{\"Literal\":{\"Value\":\"17L\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
       "height": 720.00,
       "name": "6afbf7fe254c3dd9d765",
       "visualContainers": [
         {
-          "config": "{\"name\":\"2230b7156697cbfcd1db\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31.92517537022603,\"y\":20.950896336710834,\"z\":0,\"width\":337.20966484801244,\"height\":136.6796570537802,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_calendario.data\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"data\"},\"Name\":\"dim_calendario.data\",\"NativeReferenceName\":\"data\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"data\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}]}}}",
+          "config": "{\"name\":\"2230b7156697cbfcd1db\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31.665080875356804,\"y\":20.70409134157945,\"z\":0,\"width\":242.3596574690771,\"height\":99.86679352997146,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_calendario.data\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"data\"},\"Name\":\"dim_calendario.data\",\"NativeReferenceName\":\"data\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"data\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"data\":[{\"properties\":{\"startDate\":{\"expr\":{\"Literal\":{\"Value\":\"datetime'2026-01-01T00:00:00'\"}}},\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"data\"}},\"Right\":{\"Literal\":{\"Value\":\"datetime'2026-01-01T00:00:00'\"}}}}}]}}}}]}}}",
           "filters": "[]",
-          "height": 136.68,
-          "width": 337.21,
-          "x": 31.93,
-          "y": 20.95,
+          "height": 99.87,
+          "width": 242.36,
+          "x": 31.67,
+          "y": 20.70,
           "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"bc8414cd7e34a295473f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":282.54995242626075,\"y\":34.100856327307326,\"z\":2000,\"width\":243.57754519505235,\"height\":74.29115128449097,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_praias.pico_nome\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_praias\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"pico_nome\"},\"Name\":\"dim_praias.pico_nome\",\"NativeReferenceName\":\"pico_nome\"}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"data\":[{\"properties\":{\"startDate\":{\"expr\":{\"Literal\":{\"Value\":\"datetime'2026-01-01T00:00:00'\"}}},\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 74.29,
+          "width": 243.58,
+          "x": 282.55,
+          "y": 34.10,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"e7db578e56c42bbf3a8f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":14.604726976365118,\"y\":152.30643846780765,\"z\":1000,\"width\":511.16544417277913,\"height\":267.0578647106764,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_praias.pico_nome\",\"active\":true}],\"Y\":[{\"queryRef\":\"Avg(fato_previsao_surf.tamanho_onda)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fato_previsao_surf\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_praias\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"pico_nome\"},\"Name\":\"dim_praias.pico_nome\",\"NativeReferenceName\":\"pico_nome\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"tamanho_onda\"}},\"Function\":1},\"Name\":\"Avg(fato_previsao_surf.tamanho_onda)\",\"NativeReferenceName\":\"Média de tamanho_onda\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"tamanho_onda\"}},\"Function\":1}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"valueAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"labelPosition\":{\"expr\":{\"Literal\":{\"Value\":\"'Auto'\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Média de altura das ondas (cm)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 267.06,
+          "width": 511.17,
+          "x": 14.60,
+          "y": 152.31,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"f7e7f8941a1986833471\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":151.73996175908223,\"z\":3000,\"width\":545.7743785850861,\"height\":266.76864244741876,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Y\":[{\"queryRef\":\"fato_previsao_surf.contagem_condicao\"}],\"Tooltips\":[{\"queryRef\":\"CountNonNull(classificacao_dia_semana.classificacao)\"}],\"Category\":[{\"queryRef\":\"classificacao_dia_semana.dia_da_semana\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fato_previsao_surf\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"classificacao_dia_semana\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"dia_da_semana\"},\"Name\":\"classificacao_dia_semana.dia_da_semana\",\"NativeReferenceName\":\"dia_da_semana\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"classificacao\"}},\"Function\":3},\"Name\":\"CountNonNull(classificacao_dia_semana.classificacao)\",\"NativeReferenceName\":\"Mínimo de classificacao\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"contagem_condicao\"},\"Name\":\"fato_previsao_surf.contagem_condicao\",\"NativeReferenceName\":\"contagem_condicao\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"classificacao\"}},\"Function\":3}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"valueAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Dias da semana mais aproveitáveis'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"a158f43f8a0c41e18ce3\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_condicao_ia\"}},\"Property\":\"indice_aproveitamento\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_condicao_ia\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"indice_aproveitamento\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'DIA DE OURO (Top + Vazio)'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+          "height": 266.77,
+          "width": 545.77,
+          "x": 640.00,
+          "y": 151.74,
+          "z": 3000.00
         }
       ],
       "width": 1280.00

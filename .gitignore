@@ -3,6 +3,9 @@ __pycache__/
 *.dataset
 *.msvc-tmp
 
+# Ignora caches locais do Power BI / Analysis Services
+*.cache.abf
+
 # Ignora dados brutos e intermediários
 data/bronze/
 data/silver/

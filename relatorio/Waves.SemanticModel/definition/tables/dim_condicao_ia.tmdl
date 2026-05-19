@@ -18,8 +18,7 @@ table dim_condicao_ia
 		annotation SummarizationSetBy = Automatic
 
 	column id_condicao
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: 5cddb5dc-c6c9-4811-a4ce-1cb11123a862
 		summarizeBy: none
 		sourceColumn: id_condicao
@@ -32,7 +31,7 @@ table dim_condicao_ia
 				let
 				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_condicao_ia.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
-				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"predicao_modelo", type text}, {"indice_aproveitamento", type text}, {"id_condicao", Int64.Type}})
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"predicao_modelo", type text}, {"indice_aproveitamento", type text}, {"id_condicao", type text}})
 				in
 				    #"Tipo Alterado"
 

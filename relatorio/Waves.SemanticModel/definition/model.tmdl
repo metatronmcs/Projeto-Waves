@@ -10,12 +10,13 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["fato_previsao_surf","dim_condicao_ia","dim_praias","dim_calendario"]
+annotation PBI_QueryOrder = ["fato_previsao_surf","dim_condicao_ia","dim_praias","dim_calendario","classificacao_dia_semana"]
 
 ref table fato_previsao_surf
 ref table dim_condicao_ia
 ref table dim_praias
 ref table dim_calendario
+ref table classificacao_dia_semana
 
 ref cultureInfo pt-BR
 

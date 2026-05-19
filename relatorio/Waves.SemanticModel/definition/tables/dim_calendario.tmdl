@@ -3,7 +3,7 @@ table dim_calendario
 
 	column data
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 05715cdc-3367-4b01-be41-b7fe25b42368
 		summarizeBy: none
 		sourceColumn: data
@@ -13,8 +13,7 @@ table dim_calendario
 		annotation UnderlyingDateTimeDataType = Date
 
 	column id_data
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: 1b492fb2-9aa4-4d9c-905d-bcf027a00fd9
 		summarizeBy: none
 		sourceColumn: id_data
@@ -22,8 +21,7 @@ table dim_calendario
 		annotation SummarizationSetBy = Automatic
 
 	column ano
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: 4dbd0d38-2724-4424-b3fe-37325b201eba
 		summarizeBy: none
 		sourceColumn: ano
@@ -31,8 +29,7 @@ table dim_calendario
 		annotation SummarizationSetBy = Automatic
 
 	column mes
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: 42fdf459-f94a-42df-aa9e-380881bdb54d
 		summarizeBy: none
 		sourceColumn: mes
@@ -40,8 +37,7 @@ table dim_calendario
 		annotation SummarizationSetBy = Automatic
 
 	column dia
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: 378fb100-245e-4801-a8d8-425f12b97135
 		summarizeBy: none
 		sourceColumn: dia
@@ -56,15 +52,25 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
+	column id_dia_semana
+		dataType: string
+		lineageTag: 794093c3-9e75-4e87-b8b8-daef08ed928a
+		summarizeBy: none
+		sourceColumn: id_dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_calendario = m
 		mode: import
 		source =
 				let
 				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_calendario.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
-				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"data", type date}, {"id_data", Int64.Type}, {"ano", Int64.Type}, {"mes", Int64.Type}, {"dia", Int64.Type}, {"dia_semana_nome", type text}})
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"data", type date}, {"id_data", type text}, {"ano", type text}, {"mes", type text}, {"dia", type text}, {"dia_semana_nome", type text}}),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Tipo Alterado", "id_dia_semana", each if [dia_semana_nome] = "Monday" then 1 else if [dia_semana_nome] = "Tuesday" then 2 else if [dia_semana_nome] = "Wednesday" then 3 else if [dia_semana_nome] = "Thursday" then 4 else if [dia_semana_nome] = "Friday" then 5 else if [dia_semana_nome] = "Saturday" then 6 else if [dia_semana_nome] = "Sunday" then 7 else null, type number),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"id_dia_semana", type text}})
 				in
-				    #"Tipo Alterado"
+				    #"Tipo Alterado1"
 
 	annotation PBI_NavigationStepName = Navegação
 
