@@ -39,7 +39,18 @@ def criar_modelo_dimensional():
     d_calendario['mes'] = d_calendario['data'].dt.month
     d_calendario['dia'] = d_calendario['data'].dt.day
     d_calendario['dia_semana_nome'] = d_calendario['data'].dt.day_name()
-    d_calendario.to_csv(output_dir / "dim_calendario.csv", index=False)
+    def mapear_estacao(mes):
+        if mes in [12, 1, 2]:
+            return 'Verão'
+        elif mes in [3, 4, 5]:
+            return 'Outono'
+        elif mes in [6, 7, 8]:
+            return 'Inverno'
+        else:
+            return 'Primavera'            
+    d_calendario['estacao_ano'] = d_calendario['mes'].apply(mapear_estacao)
+    
+    d_calendario.to_csv(output_dir / "dim_calendario.csv", index=False, encoding='utf-8-sig')
 
     # Fato previsão de surf
     print("Criando Tabela Fato...")
