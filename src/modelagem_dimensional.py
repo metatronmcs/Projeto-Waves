@@ -38,7 +38,7 @@ def criar_modelo_dimensional():
     d_calendario['ano'] = d_calendario['data'].dt.year
     d_calendario['mes'] = d_calendario['data'].dt.month
     d_calendario['dia'] = d_calendario['data'].dt.day
-    d_calendario['dia_semana_nome'] = d_calendario['data'].dt.day_name()
+    d_calendario['dia_semana_nome'] = d_calendario['data'].dt.day_name(locale='pt_BR')
     def mapear_estacao(mes):
         if mes in [12, 1, 2]:
             return 'Verão'
