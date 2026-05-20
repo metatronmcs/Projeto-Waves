@@ -3,6 +3,8 @@ import numpy as np
 import os
 from pathlib import Path
 
+from ingestão_raw import salvar_dados_robusto
+
 def classificar_nivel_surf(row):
     # Logica para mar calmo (Ondas até 1.0m)
     if row['tamanho_onda'] <= 1.0:
@@ -56,6 +58,11 @@ def gerar_camada_silver():
     # Classificação de Nível de Surf
     df['target_regra_manual'] = df.apply(classificar_nivel_surf, axis=1)
 
+    # Dividindo a string para separar o Nível do surf e a agitação do Mar
+    print("Desacoplando Nível do Surfista e Tipo de Mar...")
+    df['surfista_nivel'] = df['target_regra_manual'].apply(lambda x: x.split(' - ')[0])
+    df['mar_tipo'] = df['target_regra_manual'].apply(lambda x: x.split(' - ')[1])
+
     # Arredondamento
     df = df.round({'tamanho_onda': 2, 'periodo_onda': 2, 'velocidade_vento': 2, 'potencia_onda': 2})
 
@@ -66,4 +73,5 @@ def gerar_camada_silver():
     print(f"Sucesso! Arquivo salvo em: {caminho_silver}")
     print(f"Total de linhas processadas: {len(df)}")
 
-gerar_camada_silver()
+if __name__ == "__main__":
+    gerar_camada_silver()

@@ -16,7 +16,6 @@ def gerar_camada_gold():
     if not caminho_silver.exists():
         print(f"Arquivo Silver não encontrado em: {caminho_silver}")
         return
-
     print("Carregando dados e artefatos de ML...")
     df = pd.read_csv(caminho_silver)
     df['data_hora'] = pd.to_datetime(df['data_hora'])

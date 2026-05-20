@@ -22,7 +22,7 @@ DATA_INICIO_PROJETO = "2024-01-01"
 OUTPUT_DIR = 'data/bronze/'
 FILE_PATH = os.path.join(OUTPUT_DIR, 'surf_raw_data.csv')
 
-def pipeline_ingestao_surf(lista_picos, start_date, end_date):
+def pipeline_ingestao_surf(pico, start_date, end_date):    
     df_final = pd.DataFrame()
     
     dt_start = datetime.strptime(start_date, "%Y-%m-%d").date()
@@ -40,43 +40,40 @@ def pipeline_ingestao_surf(lista_picos, start_date, end_date):
         url_weather = "https://api.open-meteo.com/v1/forecast"
         api_mode = "FORECAST"
     
-    print(f"   [Modo: {api_mode}] de {start_date} até {end_date}")
-
-    for pico in lista_picos:
-        params_base = {
-            "latitude": pico['lat'], "longitude": pico['lon'],
-            "start_date": start_date, "end_date": end_date,
-            "timezone": "America/Sao_Paulo"
-        }
+    params_base = {
+        "latitude": pico['lat'], "longitude": pico['lon'],
+        "start_date": start_date, "end_date": end_date,
+        "timezone": "America/Sao_Paulo"
+    }
+    
+    try:            
+        res_m = requests.get(url_marine, params={**params_base, "hourly": ["wave_height", "wave_period", "wave_direction"]}, timeout=15).json()
+        res_w = requests.get(url_weather, params={**params_base, "hourly": ["wind_speed_10m", "wind_direction_10m"]}, timeout=15).json()
         
-        try:            
-            res_m = requests.get(url_marine, params={**params_base, "hourly": ["wave_height", "wave_period", "wave_direction"]}).json()
-            res_w = requests.get(url_weather, params={**params_base, "hourly": ["wind_speed_10m", "wind_direction_10m"]}).json()
-            
-            if 'hourly' not in res_m or 'hourly' not in res_w:
-                continue
+        if 'hourly' not in res_m or 'hourly' not in res_w:
+            return df_final
 
-            df_m = pd.DataFrame(res_m['hourly'])
-            df_w = pd.DataFrame(res_w['hourly'])
-            df_temp = pd.merge(df_m, df_w, on="time")
-            
-            # Renomeação das colunas
-            df_temp = df_temp.rename(columns={
-                "time": "data_hora", "wave_height": "tamanho_onda",
-                "wave_period": "periodo_onda", "wave_direction": "direcao_onda",
-                "wind_speed_10m": "velocidade_vento", "wind_direction_10m": "direcao_vento"
-            })
-            
-            df_temp['pico_nome'] = pico['nome']
-            df_temp['pico_orientacao'] = pico['orientacao']
-            df_temp['lat'] = pico['lat']
-            df_temp['lon'] = pico['lon']
-            
-            df_final = pd.concat([df_final, df_temp], ignore_index=True)
-            time.sleep(0.4)
-            
-        except Exception as e:
-            print(f"Erro em {pico['nome']}: {e}")
+        df_m = pd.DataFrame(res_m['hourly'])
+        df_w = pd.DataFrame(res_w['hourly'])
+        df_temp = pd.merge(df_m, df_w, on="time")
+        
+        # Renomeação das colunas
+        df_temp = df_temp.rename(columns={
+            "time": "data_hora", "wave_height": "tamanho_onda",
+            "wave_period": "periodo_onda", "wave_direction": "direcao_onda",
+            "wind_speed_10m": "velocidade_vento", "wind_direction_10m": "direcao_vento"
+        })
+        
+        df_temp['pico_nome'] = pico['nome']
+        df_temp['pico_orientacao'] = pico['orientacao']
+        df_temp['lat'] = pico['lat']
+        df_temp['lon'] = pico['lon']
+        
+        df_final = pd.concat([df_final, df_temp], ignore_index=True)
+        time.sleep(0.5)
+        
+    except Exception as e:
+        print(f"Erro em {pico['nome']} ({api_mode}): {e}")
             
     return df_final
 
@@ -99,38 +96,56 @@ def salvar_dados_robusto(df_novo):
 
 print("Iniciando Ingestão de Dados de Surf...")
 
-# 1. Verifica progresso anterior
+# Verifica progresso anterior INDIVIDUALMENTE por pico
+retomada_picos = {}
 if os.path.exists(FILE_PATH):
     df_check = pd.read_csv(FILE_PATH)
-    ultima_data_str = pd.to_datetime(df_check['data_hora']).max()
-    cursor_data = ultima_data_str.date() + timedelta(days=1)
-    print(f"Retomando do dia: {cursor_data}")
+    df_check['data_hora'] = pd.to_datetime(df_check['data_hora'])
+    
+    for p in picos:
+        df_pico = df_check[df_check['pico_nome'] == p['nome']]
+        if not df_pico.empty:
+            ultima_data = df_pico['data_hora'].max().date()
+            retomada_picos[p['nome']] = ultima_data + timedelta(days=1)
+        else:
+            retomada_picos[p['nome']] = datetime.strptime(DATA_INICIO_PROJETO, "%Y-%m-%d").date()
+    print("Log de retomada individual carregado.")
 else:
-    cursor_data = datetime.strptime(DATA_INICIO_PROJETO, "%Y-%m-%d").date()
-    print(f"Criando nova base histórica desde: {cursor_data}")
+    data_inicio = datetime.strptime(DATA_INICIO_PROJETO, "%Y-%m-%d").date()
+    retomada_picos = {p['nome']: data_inicio for p in picos}
+    print(f"Criando nova base histórica desde: {data_inicio}")
 
-# 2. Loop Mensal
+# Loop por Pico (Garante que um erro em um não afeta a data do outro)
 data_final_forecast = (datetime.today() + timedelta(days=7)).date()
 
-while cursor_data <= data_final_forecast:
-    proximo_mes = cursor_data + relativedelta(months=1)
-    fim_do_bloco = proximo_mes - timedelta(days=1)
+for pico in picos:
+    cursor_data = retomada_picos[pico['nome']]
+    print(f"Processando: {pico['nome']} | Retomando de: {cursor_data}")
     
-    if fim_do_bloco > data_final_forecast:
-        fim_do_bloco = data_final_forecast
+    while cursor_data <= data_final_forecast:
+        proximo_mes = cursor_data + relativedelta(months=1)
+        fim_do_bloco = proximo_mes - timedelta(days=1)
         
-    s_str = cursor_data.strftime("%Y-%m-%d")
-    e_str = fim_do_bloco.strftime("%Y-%m-%d")
-    
-    print(f"Processando bloco: {s_str} até {e_str}")
-    
-    df_bloco = pipeline_ingestao_surf(picos, s_str, e_str)
-    
-    if not df_bloco.empty:
-        salvar_dados_robusto(df_bloco)
-        print(f"Bloco concluído e salvo.")
-    
-    cursor_data = proximo_mes
-    time.sleep(1)
-
+        if fim_do_bloco > data_final_forecast:
+            fim_do_bloco = data_final_forecast
+            
+        s_str = cursor_data.strftime("%Y-%m-%d")
+        e_str = fim_do_bloco.strftime("%Y-%m-%d")
+        
+        print(f"Bloco: {s_str} até {e_str}")
+        
+        df_bloco = pipeline_ingestao_surf(pico, s_str, e_str)
+        
+        if not df_bloco.empty:
+            salvar_dados_robusto(df_bloco)
+        else:
+            # Se der erro (df vazio), interrompemos o loop deste pico para tentar na próxima execução
+            print(f"    Atenção: Falha ao obter dados de {pico['nome']}. Pulando para o próximo pico.")
+            break
+        
+        cursor_data = proximo_mes
+        time.sleep(1) 
 print(f"Processo Finalizado! Dados em: {os.path.abspath(FILE_PATH)}")
+
+if __name__ == "__main__":
+    salvar_dados_robusto()

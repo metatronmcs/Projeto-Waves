@@ -5,6 +5,14 @@ __pycache__/
 
 # Ignora caches locais do Power BI / Analysis Services
 *.cache.abf
+<<<<<<< HEAD
+=======
+
+# Evitar que o OneDrive trave o Git ao mudar de branch
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+>>>>>>> data-pipeline
 
 # Ignora dados brutos e intermediários
 data/bronze/
