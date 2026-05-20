@@ -26,7 +26,7 @@ def criar_modelo_dimensional():
     # Dimensão condição
     print("Criando Dimensão Condição...")
     # Agrupamos as descrições únicas para reduzir redundância na fato
-    d_condicao = df[['predicao_modelo', 'indice_aproveitamento']].drop_duplicates().reset_index(drop=True)
+    d_condicao = df[['predicao_modelo', 'indice_aproveitamento', 'surfista_nivel', 'mar_tipo']].drop_duplicates().reset_index(drop=True)
     d_condicao['id_condicao'] = d_condicao.index + 1
     d_condicao.to_csv(output_dir / "dim_condicao_ia.csv", index=False)
 
