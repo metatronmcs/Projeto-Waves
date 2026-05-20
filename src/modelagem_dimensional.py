@@ -50,7 +50,7 @@ def criar_modelo_dimensional():
             return 'Primavera'            
     d_calendario['estacao_ano'] = d_calendario['mes'].apply(mapear_estacao)
     
-    d_calendario.to_csv(output_dir / "dim_calendario.csv", index=False)
+    d_calendario.to_csv(output_dir / "dim_calendario.csv", index=False, encoding='utf-8-sig')
 
     # Fato previsão de surf
     print("Criando Tabela Fato...")
