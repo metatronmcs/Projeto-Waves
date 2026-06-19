@@ -30,12 +30,13 @@ table fato_previsao_surf
 		annotation SummarizationSetBy = Automatic
 
 	column hora
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 019cbd39-812a-4fcf-8ba3-2ae1f646c481
 		summarizeBy: none
 		sourceColumn: hora
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column tamanho_onda
 		dataType: int64
@@ -95,9 +96,9 @@ table fato_previsao_surf
 		mode: import
 		source =
 				let
-				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\fato_previsao_surf.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\fato_previsao_surf.csv"),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
-				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id_data", type text}, {"id_praia", type text}, {"id_condicao", type text}, {"hora", type text}, {"tamanho_onda", Int64.Type}, {"periodo_onda", Int64.Type}, {"direcao_onda", Int64.Type}, {"velocidade_vento", Int64.Type}, {"direcao_vento", Int64.Type}, {"potencia_onda", Int64.Type}})
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id_data", type text}, {"id_praia", type text}, {"id_condicao", type text}, {"hora", Int64.Type}, {"tamanho_onda", Int64.Type}, {"periodo_onda", Int64.Type}, {"direcao_onda", Int64.Type}, {"velocidade_vento", Int64.Type}, {"direcao_vento", Int64.Type}, {"potencia_onda", Int64.Type}})
 				in
 				    #"Tipo Alterado"
 

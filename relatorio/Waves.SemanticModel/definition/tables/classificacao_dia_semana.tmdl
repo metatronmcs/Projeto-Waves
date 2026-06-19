@@ -30,7 +30,7 @@ table classificacao_dia_semana
 		mode: import
 		source =
 				let
-				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8s3PS0msVNJRMgTjWJ1opZDS1GKImBEYg8TCU1PyYKLGYAxWmVFaBBU0AWOQoFtRJkTIFIxBQsGJJaVFEEEzMAYLlkJtNgBic6XYWAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [dia_da_semana = _t, classificacao = _t, id_dia_semana = _t]),
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCk5NL81LSdRNS80sSlTSUTIA41idaKWQ1KLDyxEShmAMkggsTSwqQUgYgTFEIjMPScIYjEESwakVSOImYAwWP7wwKTElH8g3BWOQmEt+bmZeOkjMDIxjYwE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [dia_da_semana = _t, classificacao = _t, id_dia_semana = _t]),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"dia_da_semana", type text}, {"classificacao", Int64.Type}})
 				in
 				    #"Tipo Alterado"

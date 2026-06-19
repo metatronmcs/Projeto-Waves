@@ -25,11 +25,27 @@ table dim_condicao_ia
 
 		annotation SummarizationSetBy = Automatic
 
+	column surfista_nivel
+		dataType: string
+		lineageTag: 268f251c-6475-4666-912f-7bf6cc3a211b
+		summarizeBy: none
+		sourceColumn: surfista_nivel
+
+		annotation SummarizationSetBy = Automatic
+
+	column mar_tipo
+		dataType: string
+		lineageTag: b87cde00-53df-4d36-b49f-8339ca61f503
+		summarizeBy: none
+		sourceColumn: mar_tipo
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_condicao_ia = m
 		mode: import
 		source =
 				let
-				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_condicao_ia.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_condicao_ia.csv"),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"predicao_modelo", type text}, {"indice_aproveitamento", type text}, {"id_condicao", type text}})
 				in

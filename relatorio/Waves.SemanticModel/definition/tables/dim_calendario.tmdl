@@ -60,14 +60,22 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
+	column estacao_ano
+		dataType: string
+		lineageTag: a40ec653-f7c4-4ba5-947d-8d5371201b2e
+		summarizeBy: none
+		sourceColumn: estacao_ano
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_calendario = m
 		mode: import
 		source =
 				let
-				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_calendario.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Fonte = Csv.Document(File.Contents("C:\Users\Legião\Projeto Waves\data\gold\tabelas_dimensionais\dim_calendario.csv"),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"data", type date}, {"id_data", type text}, {"ano", type text}, {"mes", type text}, {"dia", type text}, {"dia_semana_nome", type text}}),
-				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Tipo Alterado", "id_dia_semana", each if [dia_semana_nome] = "Monday" then 1 else if [dia_semana_nome] = "Tuesday" then 2 else if [dia_semana_nome] = "Wednesday" then 3 else if [dia_semana_nome] = "Thursday" then 4 else if [dia_semana_nome] = "Friday" then 5 else if [dia_semana_nome] = "Saturday" then 6 else if [dia_semana_nome] = "Sunday" then 7 else null, type number),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Tipo Alterado", "id_dia_semana", each if [dia_semana_nome] = "Segunda-feira" then 0 else if [dia_semana_nome] = "Terça-feira" then 1 else if [dia_semana_nome] = "Quarta-feira" then 2 else if [dia_semana_nome] = "Quinta-feira" then 3 else if [dia_semana_nome] = "Sexta-feira" then 4 else if [dia_semana_nome] = "Sábado" then 5 else if [dia_semana_nome] = "Domingo" then 6 else null, type number),
 				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"id_dia_semana", type text}})
 				in
 				    #"Tipo Alterado1"
